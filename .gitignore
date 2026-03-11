@@ -1,0 +1,50 @@
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# IDE settings (если используешь VS Code, Android Studio и т.д.)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Flutter/Dart (на всякий случай, если есть)
+.dart_tool/
+.packages
+pubspec.lock
+build/
+*.log
+*.iml
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Node.js (если вдруг)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Тестовые файлы (если есть)
+coverage/
+test-results/
+
+# Временные файлы
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~

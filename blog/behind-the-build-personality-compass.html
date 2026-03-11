@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behind the Build: Personality Compass - 454 Questions, 3 Models, 100% Offline | Ilja Seryshev</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="How I built Personality Compass — an offline-first self-discovery app with 454 questions across MindPath 16, MindPath 5D, and Enneagram. Technical deep dive into Flutter, PDF generation, and privacy-first architecture.">
+    <meta name="keywords" content="Flutter, offline-first, personality tests, Enneagram, PDF generation, mobile development">
+    <meta name="author" content="Ilja Seryshev">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ilja-seryshev.github.io/blog/behind-the-build-personality-compass.html">
+    
+    <!-- Open Graph (для соцсетей) -->
+    <meta property="og:title" content="Behind the Build: Personality Compass - 454 Questions, 3 Models, 100% Offline">
+    <meta property="og:description" content="Technical deep dive into building an offline-first self-discovery app with Flutter, complex PDF generation, and original psychological models.">
+    <meta property="og:url" content="https://ilja-seryshev.github.io/blog/behind-the-build-personality-compass.html">
+    <meta property="og:image" content="https://ilja-seryshev.github.io/images/personality-compass-og.jpg">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Ilja Seryshev - Developer Blog">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Behind the Build: Personality Compass">
+    <meta name="twitter:description" content="Building an offline-first personality app with 454 questions in Flutter.">
+    <meta name="twitter:image" content="https://ilja-seryshev.github.io/images/personality-compass-twitter.jpg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    
+    <!-- Favicon (если есть) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div class="blog-page">
+        <!-- Навигация (та же, что на главной) -->
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="/#about">About</a>
+                <a href="/#apps">Apps</a>
+                <a href="/#skills">Skills</a>
+                <a href="/blog/" class="blog-link">📝 Blog</a>
+            </div>
+        </div>
+
+        <!-- Ссылка назад -->
+        <div style="max-width: 800px; margin: 20px auto 0; padding: 0 20px;">
+            <a href="/blog/" class="back-link">← Back to Blog</a>
+        </div>
+
+        <!-- Статья -->
+        <article class="article">
+            
+            <h1>Behind the Build: Creating Personality Compass</h1>
+            
+            <div class="blog-meta" style="margin-bottom: 40px;">
+                <span class="blog-card-category">Development</span>
+                <span style="margin-left: 15px; color: var(--accent);">February 23, 2026 • 12 min read</span>
+            </div>
+
+            <!-- Промо других проектов -->
+            <div style="background: var(--light); padding: 20px; border-radius: 10px; margin-bottom: 30px; border-left: 4px solid var(--secondary);">
+                <p style="margin-bottom: 10px;"><strong>🧰 Also in my dev portfolio:</strong></p>
+                <p>
+                    • <a href="https://fonsalus.com" target="_blank"><strong>Fonsalus OÜ</strong></a> — Estonian business consulting website (built with Cloudflare & Resend)<br>
+                    • <a href="https://ferrosergio-dev.github.io/elektriku-treener-app/" target="_blank"><strong>Elektriku Treener</strong></a> — Offline exam prep for electricians (1064 questions, 3 languages)
+                </p>
+            </div>
+
+            <p class="lead">
+                <strong>🧭 Personality Compass</strong> is an offline-first self-discovery app with 454 questions across three psychological models. It generates professional PDF reports, works 100% offline, and collects zero data. Here's the story of how I built it.
+            </p>
+
+            <h2>🧠 The Problem I Wanted to Solve</h2>
+            
+            <p>I've always been fascinated by personality psychology – Enneagram, Big Five, and other models. But I had two major frustrations:</p>
+            
+            <ul>
+                <li><strong>Privacy concerns:</strong> Most tests send your answers to servers. My data, my reflections – why should they leave my phone?</li>
+                <li><strong>Depth vs. accessibility:</strong> Free tests are often shallow (10-20 questions). Quality tests cost money or require internet.</li>
+            </ul>
+            
+            <p>So I decided to build my own solution. One that works 100% offline, keeps all data on device, and offers real depth – 454 questions in total, completely free.</p>
+            
+            <h2>🏗️ The App at a Glance</h2>
+            
+            <table class="feature-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Platform</td>
+                    <td>Flutter / Dart</td>
+                </tr>
+                <tr>
+                    <td>Architecture</td>
+                    <td>Offline-first, local data only</td>
+                </tr>
+                <tr>
+                    <td>Languages</td>
+                    <td>English, Russian, Estonian (full localization)</td>
+                </tr>
+                <tr>
+                    <td>Total Questions</td>
+                    <td>454 across all tests</td>
+                </tr>
+                <tr>
+                    <td>Tests</td>
+                    <td>MindPath 16 (80/20 Q), MindPath 5D (120/20 Q), Enneagram (254/81 Q)</td>
+                </tr>
+                <tr>
+                    <td>PDF Reports</td>
+                    <td>Professional exports with charts, colors, and insights</td>
+                </tr>
+                <tr>
+                    <td>Storage</td>
+                    <td>All results saved locally, no cloud, no registration</td>
+                </tr>
+            </table>
+            
+            <h2>🔧 Technical Deep Dive</h2>
+            
+            <h3>Project Structure</h3>
+            
+            <div class="tree-view">
+                <span class="folder">📁 lib/</span><br>
+                ├── <span class="folder">components/</span> - Reusable UI components<br>
+                │   └── <span class="folder">enneagram/</span><br>
+                │       ├── <span class="folder">cards/</span> - Cards for enneagram result display<br>
+                │       │   ├── <span class="file">action_buttons.dart</span> - Action buttons (PDF, history)<br>
+                │       │   ├── <span class="file">arrows_card.dart</span> - Development arrows card<br>
+                │       │   ├── <span class="file">career_card.dart</span> - Career aspects<br>
+                │       │   ├── <span class="file">development_card.dart</span> - Personal development<br>
+                │       │   ├── <span class="file">interactive_chart_card.dart</span> - Interactive diagram<br>
+                │       │   └── <span class="file">type_card.dart</span> - Main enneagram type<br>
+                │       └── <span class="folder">charts/</span><br>
+                │           └── <span class="file">interactive_enneagram_chart.dart</span> - Interactive visualization<br>
+                ├── <span class="folder">constants/</span> - Constants and configurations<br>
+                ├── <span class="folder">l10n/</span> - Localization<br>
+                ├── <span class="folder">models/</span> - Data models (19 model files)<br>
+                ├── <span class="folder">screens/</span> - Screen widgets (18 screens)<br>
+                ├── <span class="folder">services/</span> - Business logic and data handling<br>
+                ├── <span class="folder">utils/</span> - Utility helpers<br>
+                │   ├── <span class="folder">enneagram_complete_pdf/</span> - PDF generation<br>
+                │   │   ├── <span class="folder">sections/</span> - 10 PDF report sections<br>
+                │   │   └── <span class="folder">widgets/</span> - PDF widgets<br>
+                │   └── <span class="file">pdf_exporter.dart</span> - PDF generation utilities<br>
+                <br>
+                <span class="folder">📁 assets/</span><br>
+                ├── <span class="folder">content/</span><br>
+                │   ├── <span class="folder">enneagram/</span> - Enneagram content in 3 languages<br>
+                │   │   ├── <span class="folder">descriptions/</span> - 8 categories of descriptions<br>
+                │   │   └── <span class="folder">questions/</span> - 3 question sets (254 total)<br>
+                │   ├── <span class="folder">interpretations/</span> - Result interpretations<br>
+                │   └── <span class="folder">mindpath/</span> - MindPath 16/5D questions<br>
+                └── <span class="folder">lang/</span> - Localization files (en.json, et.json, ru.json)
+            </div>
+            
+            <div class="note-box">
+                <strong>📝 Note:</strong> All content files support three languages (en, et, ru) with language-specific extensions like <code>core_descriptions_en.dat</code>, <code>core_descriptions_et.dat</code>, etc.
+            </div>
+            
+            <h3>Key Technical Challenges & Solutions</h3>
+            
+            <h4>1. 100% Offline PDF Generation with Complex Graphics</h4>
+            
+            <p>The biggest technical hurdle: generating professional PDF reports that include interactive-style charts, all without internet.</p>
+            
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Used RepaintBoundary + PictureRecorder to capture widgets as images</li>
+                <li>Implemented fallback mechanisms with custom Painter when screenshot fails</li>
+                <li>Created adaptive timeouts (up to 3000ms) for different device capabilities</li>
+                <li>Built modular PDF sections – each part of the report (cover, chart, arrows, career) is a separate widget</li>
+            </ul>
+            
+            <div class="code-block">
+// Example: Capturing chart for PDF
+final boundary = _chartKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+final image = await boundary.toImage(pixelRatio: 3.0);
+final byteData = await image.toByteData(format: ImageByteFormat.png);
+            </div>
+            
+            <h4>2. Building Original Psychological Models</h4>
+            
+            <p>I wanted the depth of comprehensive personality models but faced two challenges: privacy concerns (most tests send data to servers) and trademark restrictions. So I built my own:</p>
+            
+            <ul>
+                <li><strong>MindPath 16:</strong> A 16-type model analyzing cognitive preferences</li>
+                <li><strong>MindPath 5D:</strong> A 5-dimensional trait assessment</li>
+            </ul>
+            
+            <p>Both are completely original, 100% offline, and free from any third-party intellectual property restrictions.</p>
+            
+            <h4>3. The Full Enneagram (254 Questions!)</h4>
+            
+            <p>Most free Enneagram tests give you a type in 5 minutes. But real Enneagram work includes wings, subtypes, and development levels.</p>
+            
+            <p><strong>Implementation:</strong></p>
+            <ul>
+                <li>Core type identification (108 questions across 12 groups)</li>
+                <li>Subtype assessment (54 questions, sp/so/sx)</li>
+                <li>Development levels (162 statements)</li>
+                <li><strong>Total: 254 questions</strong> – one of the most complete free Enneagram tests available</li>
+            </ul>
+            
+            <h4>4. Interactive Enneagram Chart with "Smart" Arrows</h4>
+            
+            <p>The Enneagram diagram shows 9 points with connecting arrows. I wanted it to be context-aware:</p>
+            <ul>
+                <li>By default: shows only development arrows for your type (reducing cognitive load)</li>
+                <li>On tap: shows arrows for any selected type</li>
+                <li>Auto-returns to your type after 5 seconds (balance between exploration and focus)</li>
+            </ul>
+            
+            <p>This "interactivity → PDF" cycle ensures users see the same visualization in reports as in the app.</p>
+            
+            <h2>🎨 Design System & Consistency</h2>
+            
+            <p>I built a centralized style system (<code>EnneagramCardStyles</code>) that ensures visual consistency across all screens and PDF reports:</p>
+            
+            <div class="code-block">
+// Single source of truth for styles
+import './utils/enneagram_card_styles.dart' as styles;
+
+// Using consistent components everywhere
+styles.EnneagramCardStyles.buildEnhancedCard()
+styles.EnneagramCardStyles.buildColoredSection()
+            </div>
+            
+            <p>Each Enneagram type has its own color profile, consistently applied in UI, settings, and PDF exports.</p>
+            
+            <h2>🧪 Testing & Reliability</h2>
+            
+            <p>Unit tests ensure accuracy of psychological calculations:</p>
+            
+            <ul>
+                <li>MindPath 16/5D: Short and full version validation</li>
+                <li>Enneagram: Type identification (1-9), wings, subtypes (sp/so/sx), development levels (1-9)</li>
+                <li>All tests run on real data from assets/</li>
+            </ul>
+            
+            <div class="code-block">
+flutter test
+            </div>
+            
+            <h2>📊 By the Numbers</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Psychological Models</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">454</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">App Stores</div>
+                </div>
+            </div>
+            
+            <h2>📱 What Users Get</h2>
+            
+            <ul>
+                <li><strong>Complete privacy:</strong> No internet, no data collection, no registration</li>
+                <li><strong>Real depth:</strong> Full test versions (80-254 questions) or quick versions (20 questions)</li>
+                <li><strong>Beautiful PDF reports:</strong> Share with coaches, therapists, or keep for self-reflection</li>
+                <li><strong>Personal diary:</strong> Track your growth journey with reminders</li>
+                <li><strong>All free:</strong> No paywalls, no subscriptions</li>
+            </ul>
+            
+            <h2>🚀 What's Next?</h2>
+            
+            <p>The architecture is ready for combined reports – cross-analyzing results from MindPath 16, MindPath 5D, and Enneagram in a single "Personality Compass" PDF. The IntegrationEngine is already in place, waiting for content.</p>
+            
+            <h2>💡 Lessons Learned</h2>
+            
+            <ul>
+                <li><strong>Offline-first is hard but worth it.</strong> Users appreciate privacy more than we think.</li>
+                <li><strong>Build modular from day one.</strong> My PDF section architecture saved me weeks when adding new features.</li>
+                <li><strong>Don't let trademarks limit you.</strong> You can build original models with similar depth – just do the work.</li>
+                <li><strong>Test-driven development saves sanity.</strong> Unit tests caught countless scoring errors.</li>
+            </ul>
+            
+            <!-- Product Hunt Badge -->
+            <div class="badge-container">
+                <a href="https://www.producthunt.com/products/personality-compass?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-personality-compass" target="_blank" rel="noopener noreferrer">
+                    <img alt="Personality Compass - Offline self-discovery app with Enneagram, tests, PDF report | Product Hunt" 
+                         width="250" 
+                         height="54" 
+                         src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1081836&amp;theme=neutral&amp;t=1771868609496"
+                         class="producthunt-badge">
+                </a>
+            </div>
+            
+            <h2>📬 Share Your Feedback</h2>
+
+            <p>I'd love to hear from you! Whether you have questions about the development, suggestions for new features, or just want to share your experience with the app, here's how you can reach me:</p>
+
+            <div class="feedback-grid">
+                
+                <!-- Email -->
+                <div class="feedback-card">
+                    <div class="feedback-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>For questions, feedback, or support</p>
+                    <a href="mailto:info@personality-compass.app" class="feedback-link">info@personality-compass.app</a>
+                </div>
+                
+                <!-- LinkedIn -->
+                <div class="feedback-card">
+                    <div class="feedback-icon">💼</div>
+                    <h3>LinkedIn</h3>
+                    <p>Connect professionally</p>
+                    <a href="https://www.linkedin.com/in/ilja-seryshev" target="_blank" class="feedback-link">linkedin.com/in/ilja-seryshev</a>
+                </div>
+                
+                <!-- Portfolio -->
+                <div class="feedback-card">
+                    <div class="feedback-icon">🧑‍💻</div>
+                    <h3>Portfolio</h3>
+                    <p>More apps & blog</p>
+                    <a href="/" target="_blank" class="feedback-link">ilja-seryshev.github.io</a>
+                </div>
+                
+                <!-- Fonsalus (перекрестная ссылка) -->
+                <div class="feedback-card">
+                    <div class="feedback-icon">🏢</div>
+                    <h3>Fonsalus OÜ</h3>
+                    <p>Estonian business consulting</p>
+                    <a href="https://fonsalus.com" target="_blank" class="feedback-link">fonsalus.com</a>
+                </div>
+                
+            </div>
+
+            <div class="note-box">
+                <p><strong>💬 Questions for the community:</strong></p>
+                <ul>
+                    <li>Have you built offline-first apps? What were your biggest challenges?</li>
+                    <li>Would you use a tool like this for team-building, coaching, or personal growth?</li>
+                    <li>How important is privacy to you when using personality tests?</li>
+                </ul>
+                <p>Share your thoughts via email or LinkedIn — I read and respond to every message!</p>
+            </div>
+            
+            <h2>🔗 Download Personality Compass</h2>
+            
+            <div class="store-links">
+                <a href="https://apps.apple.com/app/personality-compass/id6756028837" target="_blank" class="store-link">📱 App Store</a>
+                <a href="https://play.google.com/store/apps/details?id=ee.personality.compass" target="_blank" class="store-link">📱 Google Play</a>
+                <a href="https://appgallery.huawei.com/app/C116153415" target="_blank" class="store-link">📱 AppGallery</a>
+                <a href="https://www.rustore.ru/catalog/app/ee.personality.compass.personality_compass" target="_blank" class="store-link">📱 RuStore</a>
+            </div>
+            
+            <!-- Ссылки на другие статьи -->
+            <div style="margin: 40px 0; padding: 20px; background: var(--light); border-radius: 10px;">
+                <h3 style="margin-top: 0;">📖 Read next:</h3>
+                <p>
+                    • <a href="/blog/how-i-fixed-mailchannels-with-resend.html">How I spent a night fighting Mailchannels and fixed it with Resend in 10 minutes</a><br>
+                    • <a href="/blog/building-elektriku-treener.html">Building Elektriku Treener: Offline exam prep with 1064 questions (coming soon)</a>
+                </p>
+            </div>
+            
+            <div class="cta-box">
+                <h3>Try Personality Compass Today</h3>
+                <p>Discover your personality type with 454 questions across 3 psychological models. 100% offline, complete privacy, professional PDF reports.</p>
+                <a href="https://personality-compass.app/en/index.html#download" class="cta-button" target="_blank">Download Now</a>
+            </div>
+            
+            <div class="quote-box">
+                "Know yourself — and you will know the entire universe"
+            </div>
+        </article>
+
+        <!-- Подвал блога -->
+        <div class="blog-footer">
+            <p>© 2026 Ilja Seryshev. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

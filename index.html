@@ -5,303 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ilja Seryshev - From Banking to Mobile Development</title>
   
-  <style>
-    :root {
-      --primary: #2c5aa0;
-      --secondary: #667eea;
-      --accent: #764ba2;
-      --text: #333;
-      --light: #f8f9ff;
-      --white: #ffffff;
-    }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-      line-height: 1.6;
-      color: var(--text);
-      min-height: 100vh;
-    }
-    
-    .container {
-      background: var(--white);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      margin: 20px 0;
-    }
-    
-    .header {
-      text-align: center;
-      padding: 50px 20px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-      color: var(--white);
-      position: relative;
-    }
-    
-    .profile-image {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 4px solid var(--white);
-      margin: 0 auto 20px;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: white;
-    }
-    
-    .name {
-      font-size: 36px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    .tagline {
-      font-size: 20px;
-      opacity: 0.9;
-      margin-bottom: 20px;
-    }
-    
-    .journey-tag {
-      background: rgba(255,255,255,0.2);
-      color: var(--white);
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      backdrop-filter: blur(10px);
-      display: inline-block;
-    }
-    
-    .content-section {
-      padding: 40px;
-    }
-    
-    .section-title {
-      font-size: 28px;
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .section-title::before {
-      content: "";
-      width: 4px;
-      height: 30px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-      border-radius: 2px;
-    }
-    
-    .journey-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin: 40px 0;
-    }
-    
-    .journey-column {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    
-    .journey-card {
-      background: var(--light);
-      padding: 25px;
-      border-radius: 15px;
-      border-left: 4px solid var(--secondary);
-      transition: transform 0.3s ease;
-    }
-    
-    .journey-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
-    }
-    
-    .journey-icon {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-    
-    .journey-title {
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-    
-    .journey-period {
-      color: var(--accent);
-      font-weight: bold;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-    
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin: 40px 0;
-    }
-    
-    .app-card {
-      background: var(--white);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-      border: 1px solid #f0f0f0;
-    }
-    
-    .app-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
-    }
-    
-    .app-image {
-      height: 200px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: white;
-    }
-    
-    .app-content {
-      padding: 25px;
-    }
-    
-    .app-title {
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-    
-    .app-links {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .app-link {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      background: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    
-    .app-link:hover {
-      background: var(--secondary);
-    }
-    
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 30px 0;
-    }
-    
-    .skill-category {
-      background: var(--light);
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-    }
-    
-    .skill-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
-      color: var(--primary);
-    }
-    
-    .skill-title {
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-    
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    
-    .contact-link {
-      padding: 15px 30px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: bold;
-      transition: transform 0.3s ease;
-    }
-    
-    .contact-link:hover {
-      transform: translateY(-3px);
-    }
-    
-    .quote {
-      font-style: italic;
-      text-align: center;
-      padding: 40px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-      color: white;
-      border-radius: 15px;
-      margin: 40px 0;
-      font-size: 18px;
-      line-height: 1.8;
-    }
-    
-    @media (max-width: 768px) {
-      .journey-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .apps-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .name {
-        font-size: 28px;
-      }
-      
-      .tagline {
-        font-size: 18px;
-      }
-      
-      .content-section {
-        padding: 30px 20px;
-      }
-      
-      .contact-links {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
   <div class="container">
+    <!-- Навигация -->
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="#about" class="active">About</a>
+        <a href="#apps">Apps</a>
+        <a href="#skills">Skills</a>
+        <a href="/blog/" class="blog-link">📝 Blog</a>
+      </div>
+    </div>
+
     <div class="header">
       <div class="profile-image">IS</div>
       <div class="name">Ilja Seryshev</div>
@@ -309,7 +27,7 @@
       <div class="journey-tag">15+ Years in Finance • Flutter Developer • Entrepreneur</div>
     </div>
 
-    <div class="content-section">
+    <div id="about" class="content-section">
       <div class="section-title">My Journey</div>
       <div class="journey-container">
         <div class="journey-column">
@@ -346,7 +64,7 @@
       </div>
     </div>
 
-    <div class="content-section">
+    <div id="apps" class="content-section">
       <div class="section-title">My Applications</div>
       <div class="apps-grid">
         <div class="app-card">
@@ -375,7 +93,7 @@
       </div>
     </div>
 
-    <div class="content-section">
+    <div id="skills" class="content-section">
       <div class="section-title">Skills & Expertise</div>
       <div class="skills-grid">
         <div class="skill-category">
@@ -430,5 +148,30 @@
       });
     });
   </script>
+
+  <script>
+  // Подсветка активного пункта меню при скролле
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.content-section');
+    const navLinks = document.querySelectorAll('.nav-links a:not(.blog-link)');
+    
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
 </body>
 </html>

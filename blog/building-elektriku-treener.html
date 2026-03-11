@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Elektriku Treener - The Story of an Offline Exam App | Ilja Seryshev</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="How I built Elektriku Treener — a free, ad-free, offline exam prep app with 1064 questions for Estonian electricians. Technical insights, challenges, and future plans.">
+    <meta name="keywords" content="Flutter, offline-first, education app, electrician exam, mobile development, Estonia">
+    <meta name="author" content="Ilja Seryshev">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ilja-seryshev.github.io/blog/building-elektriku-treener.html">
+    
+    <!-- Open Graph (для соцсетей) -->
+    <meta property="og:title" content="Building Elektriku Treener - Offline Exam Prep with 1064 Questions">
+    <meta property="og:description" content="The story of creating a free, ad-free, fully offline exam prep app for Estonian electricians — built with Flutter and a lot of coffee.">
+    <meta property="og:url" content="https://ilja-seryshev.github.io/blog/building-elektriku-treener.html">
+    <meta property="og:image" content="https://ferrosergio-dev.github.io/elektriku-treener-app/logo192.png">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Ilja Seryshev - Developer Blog">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Building Elektriku Treener - Offline Exam Prep App">
+    <meta name="twitter:description" content="How I built a free offline exam app for electricians with 1064 questions.">
+    <meta name="twitter:image" content="https://ferrosergio-dev.github.io/elektriku-treener-app/logo192.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <style>
+        /* Дополнительные стили для страницы "в разработке" */
+        .coming-soon-hero {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px dashed var(--secondary);
+        }
+        
+        .construction-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .stats-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 12px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        .app-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--light);
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-page">
+        <!-- Навигация -->
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="/#about">About</a>
+                <a href="/#apps">Apps</a>
+                <a href="/#skills">Skills</a>
+                <a href="/blog/" class="blog-link">📝 Blog</a>
+            </div>
+        </div>
+
+        <!-- Ссылка назад -->
+        <div style="max-width: 800px; margin: 20px auto 0; padding: 0 20px;">
+            <a href="/blog/" class="back-link">← Back to Blog</a>
+        </div>
+
+        <!-- Статья -->
+        <article class="article">
+            
+            <!-- HERO секция "В разработке" -->
+            <div class="coming-soon-hero">
+                <div class="construction-icon">⚡🚧⚡</div>
+                <h1 style="margin-bottom: 15px;">Building Elektriku Treener</h1>
+                <p style="font-size: 20px; color: var(--primary); margin-bottom: 20px;">
+                    The full story is coming soon!
+                </p>
+                <p style="max-width: 600px; margin: 0 auto;">
+                    I'm working on a detailed technical deep dive about creating this offline exam prep app. 
+                    Meanwhile, you can explore the app and its features on the landing page.
+                </p>
+            </div>
+
+            <!-- Контекст о разработчике и ссылка на Fonsalus -->
+            <div style="background: var(--light); padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid var(--secondary);">
+                <p style="margin-bottom: 10px;"><strong>🧰 Also in my dev portfolio:</strong></p>
+                <p>
+                    • <a href="https://fonsalus.com" target="_blank"><strong>Fonsalus OÜ</strong></a> — Estonian business consulting website (built with Cloudflare & Resend)<br>
+                    • <a href="/blog/behind-the-build-personality-compass.html"><strong>Personality Compass</strong></a> — Self-discovery app with 454 questions
+                </p>
+            </div>
+
+            <!-- Краткий обзор приложения -->
+            <h2>⚡ What is Elektriku Treener?</h2>
+            
+            <p>
+                <strong>Elektriku Treener</strong> is a free, ad-free, fully offline exam prep app created 
+                <em>by an electrician for electricians in Estonia</em>. It helps you confidently prepare for 
+                level 3, 4, and 5 qualification exams with realistic simulations, instant feedback, 
+                and personalized progress tracking — all without internet.
+            </p>
+
+            <!-- Статистика в цифрах -->
+            <div class="stats-preview">
+                <div class="stat-item">
+                    <div class="stat-number">1064</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Exam Levels</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Offline</div>
+                </div>
+            </div>
+
+            <!-- Превью с лендинга -->
+            <div class="app-preview">
+                <h3 style="margin-top: 0; color: var(--primary);">📱 Key Features</h3>
+                
+                <div style="margin: 20px 0;">
+                    <span class="feature-tag">📚 1064 Questions</span>
+                    <span class="feature-tag">🎯 Smart Practice Mode</span>
+                    <span class="feature-tag">📝 Exam Simulation</span>
+                    <span class="feature-tag">📊 Progress Tracking</span>
+                    <span class="feature-tag">🌐 Trilingual Support</span>
+                    <span class="feature-tag">🔒 100% Privacy</span>
+                </div>
+                
+                <p>
+                    <strong>Exam Levels:</strong> Level 3 (Basic), Level 4 (Advanced), Level 5 (Master)
+                </p>
+                
+                <p style="margin-bottom: 0;">
+                    <em>"Built by an electrician, for electricians! This isn't just a quiz app — it's a professional 
+                    tool to build confidence and pass Estonia's electrician certification with ease."</em>
+                </p>
+            </div>
+
+            <!-- Кнопка на лендинг -->
+            <div style="text-align: center; margin: 40px 0;">
+                <a href="https://ferrosergio-dev.github.io/elektriku-treener-app/" 
+                   target="_blank" 
+                   class="cta-button" 
+                   style="display: inline-block; padding: 15px 40px; font-size: 18px;">
+                    🚀 Visit Elektriku Treener Landing Page →
+                </a>
+            </div>
+
+            <!-- Что будет в статье -->
+            <h2>📝 What the Full Article Will Cover</h2>
+            
+            <ul>
+                <li><strong>Architecture decisions:</strong> Why offline-first? How to structure an app with 1000+ questions?</li>
+                <li><strong>Question management:</strong> Handling 1064 questions across 3 levels and 3 languages</li>
+                <li><strong>Smart Practice Mode:</strong> Implementing randomized answers and adaptive learning</li>
+                <li><strong>Progress tracking:</strong> Building independent knowledge batteries for each level</li>
+                <li><strong>Performance optimizations:</strong> Keeping the app fast with large datasets</li>
+                <li><strong>GDPR & privacy:</strong> Zero data collection, all local storage</li>
+                <li><strong>Lessons learned:</strong> What I'd do differently next time</li>
+            </ul>
+
+            <!-- Промо других статей -->
+            <div style="margin: 40px 0; padding: 20px; background: var(--light); border-radius: 10px;">
+                <h3 style="margin-top: 0;">📖 While you wait, read these:</h3>
+                <p>
+                    • <a href="/blog/how-i-fixed-mailchannels-with-resend.html">How I spent a night fighting Mailchannels and fixed it with Resend</a><br>
+                    • <a href="/blog/behind-the-build-personality-compass.html">Behind the Build: Creating Personality Compass</a>
+                </p>
+            </div>
+
+            <!-- Подписка/уведомление (имитация) -->
+            <div class="note-box">
+                <p style="margin-bottom: 10px;"><strong>🔔 Want to know when the article is out?</strong></p>
+                <p>Follow me on <a href="https://www.linkedin.com/in/ilja-seryshev" target="_blank">LinkedIn</a> or check this space. I'll announce when the full technical deep dive is ready.</p>
+            </div>
+
+        </article>
+
+        <!-- Подвал блога -->
+        <div class="blog-footer">
+            <p style="margin-bottom: 10px;">
+                <a href="/" style="color: var(--primary); text-decoration: none;">← Back to Portfolio</a> • 
+                <a href="https://fonsalus.com" target="_blank" style="color: var(--primary); text-decoration: none;">Fonsalus OÜ</a>
+            </p>
+            <p>© 2026 Ilja Seryshev. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
